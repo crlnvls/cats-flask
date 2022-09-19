@@ -1,0 +1,6 @@
+.DS_Store
+.vs_code
+.env
+__pycache__
+.coverage
+.pytest_cache
