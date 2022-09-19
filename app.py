@@ -1,26 +1,49 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, abort, redirect, url_for, request
 from flask_cors import CORS
 from werkzeug import exceptions
+
+from db import cats
+
 
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    if request.method == "GET":
+        return render_template("index.html")
+    else: 
+        name = request.form["name"]
+        age = request.form["age"]
+        breed = request.form["breed"]
+        caption = request.form["caption"]
+        id = len(cats) + 1
+        cats.append({
+            "id": id,
+            "name": name,
+            "age": age,
+            "breed": breed,
+            "caption": caption
+        })
+        return redirect(url_for("cat_show", id=id))
 
 @app.route("/about", methods=["GET"])
 def about():
     return render_template("about.html")
 
-@app.route("/cats", methods=["GET"])
-def cats():
-    return render_template("cats.html")
+@app.route("/cats/", methods=["GET"])
+def cats_index():
+    return render_template("cats.html", cats=cats, title="Our cats")
 
 @app.route("/cats/<int:id>", methods=["GET"])
 def cat_show(id):
-    return render_template("cat.html")
-    
+    matching_cats = [c for c in cats if c['id'] == id]
+    if len(matching_cats) == 1:
+        cat = matching_cats[0]
+        return render_template("cat.html", cat=cat)
+    else:
+        abort(404)
 
 # Error handlers
 
