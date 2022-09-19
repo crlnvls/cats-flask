@@ -1,4 +1,16 @@
 {% extends "default.html" %}
 {% block title %}Cat Gang{% endblock title %}
 {% block heading %}Welcome to Cat Gang!{% endblock heading %}
-{% block content %}<p>Home</p>{% endblock content %}
+{% block content %}
+<form method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required />
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required />
+    <label for="breed">Breed:</label>
+    <input type="text" id="breed" name="breed" required />
+    <label for="caption">Caption:</label>
+    <input type="text" id="caption" name="caption" required />
+    <input type="submit" value="Add"/>
+</form>
+{% endblock content %}

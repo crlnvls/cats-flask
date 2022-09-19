@@ -1,4 +1,8 @@
 {% extends "default.html" %}
 {% block title %}Cat Gang{% endblock title %}
-{% block heading %}Welcome to Cat Gang!{% endblock heading %}
-{% block content %}<p>One cat</p>{% endblock content %}
+{% block heading %}{{ cat.name }}{% endblock heading %}
+{% block content %}
+<p>{{ cat.age }}</p>
+<p>{{ cat.breed }}</p>
+<p>{{ cat.caption }}</p>
+{% endblock content %}
