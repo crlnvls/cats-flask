@@ -36,7 +36,7 @@ def about():
 def cats_index():
     return render_template("cats.html", cats=cats, title="Our cats")
 
-@app.route("/cats/<int:id>", methods=["GET"])
+@app.route("/cats/<int:id>", methods=["GET", "DELETE"])
 def cat_show(id):
     matching_cats = [c for c in cats if c['id'] == id]
     if len(matching_cats) == 1:
